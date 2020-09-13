@@ -6,7 +6,7 @@ Basic level of parallelism introduced with python's joblib library as well.
 Some images:
 
 A random scene generated from randomballs.py:
-(https://github.com/rabhinav42/pytracing/blob/master/Images/cap1.JPG)
+![Image1](https://github.com/rabhinav42/pytracing/blob/master/Images/cap1.JPG)
 
 Odd behaviour of glass because of reflection+refraction: (Middle = glass, surrounding+floor = metal)
-(https://github.com/rabhinav42/pytracing/blob/master/Images/glassandmetal.jpg)
+![Image2](https://github.com/rabhinav42/pytracing/blob/master/Images/glassandmetal.jpg)
