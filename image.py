@@ -7,6 +7,7 @@ from math import pi, tan
 import sys
 from utils import normalize, degrees_to_rad, random_unit_disk
 from joblib import Parallel, delayed
+from multiprocessing import cpu_count
 
 
 
@@ -85,6 +86,7 @@ def render(world, camera, im, filename):
     max_depth = camera.max_depth
 
     def p_color(j, i):
+        """ parallel coloring """
         randvec = [(random(), random()) for _ in range(camera.samples)]
         cols = [ray_color(camera.getray((i + p) / (width - 1), (j + q) / (height - 1)),
                           world,
@@ -92,9 +94,11 @@ def render(world, camera, im, filename):
                 for p, q in randvec]
         return numpy.average(cols, axis=0)
 
-    im.pixels = list(Parallel(n_jobs=4)(delayed(p_color)(j, i) for j in range(height) for i in range(width)))
+    im.pixels = list(Parallel(n_jobs=cpu_count())(delayed(p_color)(j, i) for j in range(height) for i in range(width)))
     im.pixels = [[im.pixels[i] for i in range(start, start + width)] for start in range(0, width * height, width)]
 
+    ### OLD RENDERING W/O PARALLELISM ###
+    
     # randvec = [(random(), random()) for _ in range(camera.samples)]
     # file = sys.stdout
     # prev = 0
